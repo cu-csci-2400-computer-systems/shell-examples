@@ -5,12 +5,14 @@ string:
 string_end:
         .equ len, string_end - string
 .section .text
+.globl _start
+_start:
 .globl main
 main:
         # First, call write(1, "hello, world\n", 13)
         movq $1, %rax        # write is system call 1        
         movq $1, %rdi        # Arg1: stdout has descriptor 1 
-        movq $string, %rsi   # Arg2: hello world string
+        movq $string, %rsi   # Arg2: address of hello world string
         movq $len, %rdx      # Arg3: string length           
         syscall              # Make the system call         
 
