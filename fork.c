@@ -9,12 +9,14 @@ int main()
 
     pid = Fork(); //line:ecf:forkreturn
     if (pid == 0) {  /* Child */
-	printf("child : x=%d\n", ++x); //line:ecf:childprint
-	exit(0);
+        x = x + 1;
+        printf("child : x=%d\n", x); //line:ecf:childprint
+        exit(0);
     }
 
     /* Parent */
-    printf("parent: x=%d\n", --x); //line:ecf:parentprint
+    x = x - 1;
+    printf("parent: x=%d\n", x); //line:ecf:parentprint
     exit(0);
 }
 /* $end fork */

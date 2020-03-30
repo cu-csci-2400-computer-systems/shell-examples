@@ -5,13 +5,14 @@ int counter = 1;
 int main() 
 {
     if (fork() == 0) {
-        counter--;  
+        counter--; 
+        fprintf(stderr,"Child counter is %d\n", counter);
         exit(0);
     }
     else {
 	Wait(NULL); 
         counter = counter + 1;
-	printf("counter = %d\n", counter);
+	fprintf(stderr,"Parent counter = %d\n", counter);
     }
     exit(0);
 }
