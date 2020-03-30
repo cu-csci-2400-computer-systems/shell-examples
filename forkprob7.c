@@ -10,7 +10,7 @@ int main()
     }
     else {
 	Wait(NULL); 
-        counter = couner + 1;
+        counter = counter + 1;
 	printf("counter = %d\n", counter);
     }
     exit(0);
