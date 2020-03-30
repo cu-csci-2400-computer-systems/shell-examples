@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include <signal.h>
 #include <setjmp.h>
 #include <time.h>
 
