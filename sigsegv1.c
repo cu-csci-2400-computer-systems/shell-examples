@@ -5,7 +5,7 @@ void handler1(int sig)
 {
   fprintf(stderr,"Ow! I got signal \"%s\"(#%d)\n",
 	  strsignal(sig), sig);
-  exit(0);
+ // exit(0);
 }
 
 int main() 
@@ -18,7 +18,7 @@ int main()
         unix_error("signal error");
 
     fprintf(stderr,"About to poke main..\n");
-    ptr = (char *) main;
+    ptr = (char *) 0;
     *ptr = '\n';
 
 }
