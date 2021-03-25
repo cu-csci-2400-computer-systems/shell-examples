@@ -1,13 +1,13 @@
 /* $begin forkprob1 */
 #include "csapp.h"
 
-int main() 
+int main()
 {
     int i;
 
-    for (i = 0; i < 2; i++) 
-	Fork();
-    printf("hello\n");
+    for (i = 0; i < 2; i++)
+        Fork();
+    printf("hello from %d\n", getpid());
     exit(0);
 }
 /* $end forkprob1 */

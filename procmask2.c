@@ -20,7 +20,8 @@ void handler(int sig)
     pid_t pid;
 
     Sigfillset(&mask_all);
-    while ((pid = waitpid(-1, NULL, 0)) > 0) { /* Reap a zombie child */
+    while ((pid = waitpid(-1, NULL, 0)) > 0)
+    { /* Reap a zombie child */
         Sigprocmask(SIG_BLOCK, &mask_all, &prev_all);
         deletejob(pid); /* Delete the child from the job list */
         Sigprocmask(SIG_SETMASK, &prev_all, NULL);
@@ -29,7 +30,7 @@ void handler(int sig)
         Sio_error("waitpid error");
     errno = olderrno;
 }
-    
+
 int main(int argc, char **argv)
 {
     int pid;
@@ -41,15 +42,17 @@ int main(int argc, char **argv)
     Signal(SIGCHLD, handler);
     initjobs(); /* Initialize the job list */
 
-    while (1) {
+    while (1)
+    {
         Sigprocmask(SIG_BLOCK, &mask_one, &prev_one); /* Block SIGCHLD */
-        if ((pid = Fork()) == 0) { /* Child process */
+        if ((pid = Fork()) == 0)
+        {                                              /* Child process */
             Sigprocmask(SIG_SETMASK, &prev_one, NULL); /* Unblock SIGCHLD */
             Execve("/bin/date", argv, NULL);
         }
-        Sigprocmask(SIG_BLOCK, &mask_all, NULL); /* Parent process */  
-        addjob(pid);  /* Add the child to the job list */
-        Sigprocmask(SIG_SETMASK, &prev_one, NULL);  /* Unblock SIGCHLD */
+        Sigprocmask(SIG_BLOCK, &mask_all, NULL);   /* Parent process */
+        addjob(pid);                               /* Add the child to the job list */
+        Sigprocmask(SIG_SETMASK, &prev_one, NULL); /* Unblock SIGCHLD */
     }
     exit(0);
 }
