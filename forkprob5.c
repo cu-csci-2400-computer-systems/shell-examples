@@ -1,6 +1,10 @@
 /* $begin forkprob5 */
 #include "csapp.h"
 
+//
+// Illustrates that the control flow of the parent is duplicated as well
+//
+
 void doit()
 {
     if (Fork() == 0)

@@ -7,6 +7,9 @@ You should be able to build all the examples using `make` -- this will build a n
 ### Fork
 
 * `forkprob0.exe` - Simple fork example showing Fork() and the fact that the child processes run independently, the output may be reordered and the parent doesn't wait. Run repeatedly to see this effect.
+* `forkprob1.exe` - Runs fork in a loop - how many processes are created?
+* `forkprob2.exe` - ignore this one for now
+* `forkprob3.exe` - parent and child state are duplicated
 * `forkprob7.exe` - Like `fork.exe`, child process modifies counter, parent waits for child to complete, global counter values are different for parent & child.
 
 ### Wait

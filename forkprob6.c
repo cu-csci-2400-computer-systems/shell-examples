@@ -1,6 +1,11 @@
 /* $begin forkprob6 */
 #include "csapp.h"
 
+//
+// The child processes also have the same return stack -- 
+// so they can also return from functions called by the parent.
+//
+
 void doit()
 {
     if (Fork() == 0)
