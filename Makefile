@@ -1,5 +1,5 @@
 CEXE=$(wildcard *.c)
-EXE=$(patsubst %.c,%.exe,$(CEXE))
+EXE=$(patsubst %.c,%.exe,$(CEXE)) hello-asm64.exe
 
 LIBS=-lpthread
 
