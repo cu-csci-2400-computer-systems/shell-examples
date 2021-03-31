@@ -4,13 +4,27 @@
 void handler2(int sig)
 {
     int olderrno = errno;
-
-    while (waitpid(-1, NULL, 0) > 0)
+    fprintf(stderr,"Enter SIGCHL handler\n");
+    for (;;)
     {
-        Sio_puts("Handler reaped child\n");
+        pid_t pid = waitpid(-1, NULL, 0);
+
+        if (pid < 0)
+        {
+            if (errno != ECANCELED)
+            {
+                fprintf(stderr, "Done reaping children\n");
+            }
+            else
+            {
+                fprintf(stderr, "waitpid returned error %d\n", pid);
+            }
+
+            break;
+        }
+
+        fprintf(stderr, "Handler reaped child %d\n", pid);
     }
-    if (errno != ECHILD)
-        Sio_error("waitpid error");
     Sleep(1);
     errno = olderrno;
 }

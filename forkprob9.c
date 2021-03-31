@@ -1,25 +1,35 @@
 /* $begin forkprob2 */
 #include "csapp.h"
 
+//
+// The C library actually as a way to run "hooks" when you call exit
+// because it's often useful to "clean up" some resource when your process exits.
+//
+// However, these are only called if exit() is called. If your process dies
+// they aren't called.
+//
+
 void end(void)
 {
-    printf("2");
-    fflush(stdout);
+    fprintf(stderr,"Process %d exits from end()\n", getpid());
 }
 
 int main()
 {
-    if (Fork() == 0)
+    int pid = fork();
+
+    if (pid == 0) {
+        fprintf(stderr,"Child %d sets atexit routine\n", getpid());
         atexit(end);
+    }
+
     if (Fork() == 0)
     {
-        printf("0");
-        fflush(stdout);
+        fprintf(stderr,"Process in if-then %d executes\n", getpid());
     }
     else
     {
-        printf("1");
-        fflush(stdout);
+        fprintf(stderr,"Process %d executes else\n", getpid());
     }
     exit(0);
 }

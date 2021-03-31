@@ -1,5 +1,9 @@
 #include "csapp.h"
 
+//
+// A constrtained fork bomb
+//
+
 /* $begin forkprob8 */
 void foo(int n)
 {
@@ -7,7 +11,7 @@ void foo(int n)
 
     for (i = 0; i < n; i++)
         Fork();
-    printf("hello from %d\n", getpid());
+    fprintf(stderr, "hello from %d\n", getpid());
     exit(0);
 }
 /* $end forkprob8 */

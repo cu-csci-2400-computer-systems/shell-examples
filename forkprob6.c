@@ -1,9 +1,10 @@
-/* $begin forkprob6 */
+/* $begin forkprob5 */
 #include "csapp.h"
 
 //
-// The child processes also have the same return stack -- 
-// so they can also return from functions called by the parent.
+// Illustrates that the control flow of the parent is duplicated as well
+//
+// Including not doing an exit
 //
 
 void doit()
@@ -11,16 +12,18 @@ void doit()
     if (Fork() == 0)
     {
         Fork();
-        printf("hello from %d in doit\n", getpid());
-        return;
+        fprintf(stderr, "Process %d exits from doit()\n", getpid());
+        // we have removed the exit()
     }
+    fprintf(stderr, "Process %d does a return from doit()\n", getpid());
+
     return;
 }
 
 int main()
 {
     doit();
-    printf("hello from %d in main\n", getpid());
+    fprintf(stderr, "Process %d exits in main\n", getpid());
     exit(0);
 }
-/* $end forkprob6 */
+/* $end forkprob5 */

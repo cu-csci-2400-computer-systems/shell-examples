@@ -1,6 +1,12 @@
 /* $begin forkprob1 */
 #include "csapp.h"
 
+//
+// Question on how many processes
+//
+// Both child and parent continue execution in the loop
+//
+
 int main()
 {
     int i;

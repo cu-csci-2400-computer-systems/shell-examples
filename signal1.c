@@ -6,9 +6,10 @@ void handler1(int sig)
 {
     int olderrno = errno;
 
-    if ((waitpid(-1, NULL, 0)) < 0)
+    int pid = waitpid(-1, NULL, 0);
+    if (pid < 0)
         sio_error("waitpid error");
-    Sio_puts("Handler reaped child\n");
+    fprintf(stderr, "Handler reaped child %d\n", pid);
     Sleep(1);
     errno = olderrno;
 }
@@ -26,7 +27,7 @@ int main()
     {
         if (Fork() == 0)
         {
-            printf("Hello from child %d\n", (int)getpid());
+            fprintf(stderr, "Hello from child %d\n", (int)getpid());
             exit(0);
         }
     }
