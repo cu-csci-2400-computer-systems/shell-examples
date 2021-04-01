@@ -13,8 +13,10 @@ int main()
     if (signal(SIGINT, sigint_handler) == SIG_ERR) //line:ecf:sigint:begininstall
         unix_error("signal error");                //line:ecf:sigint:endinstall
 
-    while (1)
+    while (1) {
+        printf("Do something or hit ctrl-C\n");
         pause(); /* Wait for the receipt of a signal */ //line:ecf:sigint:pause
+    }
 
     return 0;
 }
