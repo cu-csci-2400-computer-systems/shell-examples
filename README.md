@@ -10,6 +10,7 @@ You should be able to build all the examples using `make` -- this will build a n
 * `forkprob1.exe` - Runs fork in a loop - how many processes are created?
 * `forkprob2.exe` - ignore this one for now
 * `forkprob3.exe` - parent and child state are duplicated
+* `forkprob4.exe` - 
 * `forkprob7.exe` - Like `fork.exe`, child process modifies counter, parent waits for child to complete, global counter values are different for parent & child.
 
 ### Wait
