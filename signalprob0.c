@@ -14,7 +14,7 @@ void handler1(int sig)
 
     Sigfillset(&mask);
     Sigprocmask(SIG_BLOCK, &mask, &prev_mask); /* Block sigs */
-    Sio_putl(--counter);
+    fprintf(stderr,"decremented counter is %ld in process %d\n", --counter, getpid());
     Sigprocmask(SIG_SETMASK, &prev_mask, NULL); /* Restore sigs */
 
     _exit(0);
@@ -25,22 +25,27 @@ int main()
     pid_t pid;
     sigset_t mask, prev_mask;
 
-    printf("%ld", counter);
+    fprintf(stderr, "Initial counter value is %ld in process %d\n", counter, getpid());
     fflush(stdout);
 
     signal(SIGUSR1, handler1);
     if ((pid = Fork()) == 0)
     {
-        while (1)
+        //
+        // Child process starts infinite loop
+        //
+        fprintf(stderr,"Child process %d starts infinite loop\n", getpid());
+        for (;;)
         {
         };
     }
+    sleep(1);
     Kill(pid, SIGUSR1);
     Waitpid(-1, NULL, 0);
 
     Sigfillset(&mask);
     Sigprocmask(SIG_BLOCK, &mask, &prev_mask); /* Block sigs */
-    printf("%ld", ++counter);
+    fprintf(stderr, "incremented counter value is %ld in process %d\n", ++counter, getpid());
     Sigprocmask(SIG_SETMASK, &prev_mask, NULL); /* Restore sigs */
 
     exit(0);

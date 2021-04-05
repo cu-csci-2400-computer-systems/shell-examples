@@ -10,7 +10,6 @@ void handler1(int sig)
     if (pid < 0)
         sio_error("waitpid error");
     fprintf(stderr, "Handler reaped child %d\n", pid);
-    Sleep(1);
     errno = olderrno;
 }
 
@@ -27,7 +26,7 @@ int main()
     {
         if (Fork() == 0)
         {
-            fprintf(stderr, "Hello from child %d\n", (int)getpid());
+            fprintf(stderr, "Starting child %d\n", (int)getpid());
             exit(0);
         }
     }
@@ -37,8 +36,10 @@ int main()
         unix_error("read");
 
     printf("Parent processing input\n");
-    while (1)
-        ;
+    for (;;)
+    {
+        // infinite loop
+    }
 
     exit(0);
 }

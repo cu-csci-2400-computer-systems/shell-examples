@@ -32,7 +32,9 @@ int main(int argc, char **argv)
         /* Wait for SIGCHLD to be received */
         pid = 0;
         while (!pid)
+        {
             Sigsuspend(&prev);
+        }
 
         /* Optionally unblock SIGCHLD */
         Sigprocmask(SIG_SETMASK, &prev, NULL);

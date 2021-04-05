@@ -16,6 +16,7 @@ int main()
 
     for (;;)
     {
+        fprintf(stderr, "Waiting for something to happen\n");
         pause(); /* Wait for the receipt of a signal */
     }
 

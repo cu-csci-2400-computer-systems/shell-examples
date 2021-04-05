@@ -2,6 +2,14 @@
 #include "csapp.h"
 #define MAXARGS 128
 
+//
+// Sample shell program from the text.
+//
+// Thie example has a basic fork / exec / wait loop to evaluate individual commands.
+// It can also "background" jobs meaning it does not wait for them. Those processes
+// will be "zombie" proceses because no wait() is ever performed
+//
+
 /* Function prototypes */
 void eval(char *cmdline);
 int parseline(char *buf, char **argv);

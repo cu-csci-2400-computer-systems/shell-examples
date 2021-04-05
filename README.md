@@ -15,7 +15,7 @@ You should be able to build all the examples using `make` -- this will build a n
 ### Wait
 
 * `waitprob0.exe` - parent explicitly waits for child, output is ordered by waiting
-* `waitpid1.exe` - Child processes return values to parent using `exit()`, parent waits for children in any order. Run repeatedly to see this effect.
+* `waitpid1.exe` - Child processes returns value to parent using `exit()`, parent waits for children in any order. Run repeatedly to see this effect.
 * `waitpid2.exe` - Like `waitpid1.exe` but wait for processes in specific order due to waiting for specific PID. Repeated execution shows output remains the same.
 
 ### execve
@@ -33,3 +33,19 @@ You should be able to build all the examples using `make` -- this will build a n
 * `signalprob0.exe` - Uses `sigprocmask` to strong order execution output. Only one possible output ("213"). Occurs because of `waitpid()` for child and blocking /unblocking of signals
 * `procmask1.exe` -- demonstrates race condition of addjob/deletejob
 * `procmask2.exe` -- shows fix by blocking signals
+
+## Using GDB to debug your shell lab with VScode
+
+If you plan on using VScode to debug your shell lab, we need to do a little configuration. Normally, GDB "catches" the same sig\
+nals your shell is supposed to catch. This stops execution and returns control to GDB when those signals occur. This means you \
+can't just set a breakpoint in your signal handlers and expect to have the debugger notice that.
+
+To get around this, we will use a [`.gdbinit`](.gdbinit) file which is contained in this Git repo. By default, `gdb` will not read a local `.gdbinit` file because of security concerns. We can override that by adding an option to the `.gdbinit` file in your home directory to enable loading any gdbinit file.
+
+To do this, cut and paste the following line into a Terminal window
+
+```
+echo "set auto-load safe-path /" >> ~/.gdbinit
+```
+
+Following this, the local `.gdbinit` should be loaded. If you want to change the local `.gdbinit` you can learn more about the signal configurations [at this GDB manual](https://sourceware.org/gdb/current/onlinedocs/gdb/Signals.html).

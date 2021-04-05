@@ -2,6 +2,13 @@
 #include "csapp.h"
 #define N 2
 
+//
+// The following is a simple shell as described in the textbook.
+//
+// The code does a simple fork / exec / wait mechanism for spawned processes.
+// I can
+//
+
 int main()
 {
     int status, i;
