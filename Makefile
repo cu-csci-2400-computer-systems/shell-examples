@@ -1,12 +1,14 @@
 CEXE=$(wildcard *.c)
 EXE=$(patsubst %.c,%.exe,$(CEXE)) hello-asm64.exe
 
+CFLAGS=-g -O0
+
 LIBS=-lpthread
 
 all: $(EXE)
 
 %.exe : %.c
-	$(CC) -o $@ $< ./csapp.c $(LIBS)
+	$(CC) $(CFLAGS) -o $@ $< ./csapp.c $(LIBS)
 
 hello-asm64.exe: hello-asm64.sa
 	as -o hello-asm64.o hello-asm64.sa
