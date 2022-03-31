@@ -7,9 +7,12 @@ LIBS=-lpthread
 
 all: $(EXE)
 
-%.exe : %.c
-	$(CC) $(CFLAGS) -o $@ $< ./csapp.c $(LIBS)
+%.exe : %.c csapp.o
+	$(CC) $(CFLAGS) -o $@ $< ./csapp.o $(LIBS)
 
+#
+# This is linux specific because of syscall interface
+#
 hello-asm64.exe: hello-asm64.sa
 	as -o hello-asm64.o hello-asm64.sa
 	ld -o hello-asm64.exe hello-asm64.o
@@ -19,3 +22,4 @@ csapp.exe: csapp.c
 
 clean:
 	-rm *.exe *.o
+	-rm -rf *.exe.dSYM   # for macos
