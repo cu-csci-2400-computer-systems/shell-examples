@@ -1,10 +1,10 @@
 /* $begin hello64-s 1 */
-.section .data
+   .data
 string:
         .ascii "hello, world\n"
 string_end:
         .equ len, string_end - string
-.section .text
+	.text
 .globl _start
 _start:
 .globl main
