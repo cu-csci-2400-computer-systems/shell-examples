@@ -9,14 +9,21 @@ string_end:
 .globl _main
 _main:
 main:
-        # First, call write(1, "hello, world\n", 13)
-        movq $1, %rax        # write is system call 1        
+        // First, call write(1, "hello, world\n", 13)
+#ifdef __APPLE__
+//
+// See https://stackoverflow.com/questions/48845697/macos-64-bit-system-call-table
+//
+        movq $0x2000001, %rax        # write is system call 1 in the BSD world
+#else	
+        movq $1, %rax        # write is system call 1
+#endif
         movq $1, %rdi        # Arg1: stdout has descriptor 1 
 	leaq string(%rip), %rsi
         movq $len, %rdx      # Arg3: string length           
         syscall              # Make the system call         
-
-        # Next, call _exit(0)
+ 
+        // Next, call _exit(0)
         movq $60, %rax       # _exit is system call 60     
         movq $0, %rdi        # Arg1: exit status is 0      
         syscall              # Make the system call        

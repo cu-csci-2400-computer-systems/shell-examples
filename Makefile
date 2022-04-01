@@ -14,7 +14,8 @@ all: $(EXE)
 # This is linux specific because of syscall interface
 #
 hello-asm64.exe: hello-asm64.sa
-	as -o hello-asm64.o hello-asm64.sa
+	cpp hello-asm64.sa > hello-asm64.s
+	as -o hello-asm64.o hello-asm64.s
 	cc -o hello-asm64.exe hello-asm64.o  # use 'cc' rather than a naked 'ld' to work on MacOS
 
 csapp.exe: csapp.c
@@ -23,3 +24,4 @@ csapp.exe: csapp.c
 clean:
 	-rm *.exe *.o
 	-rm -rf *.exe.dSYM   # for macos
+	-rm hello-asm64.s
