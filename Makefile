@@ -15,7 +15,7 @@ all: $(EXE)
 #
 hello-asm64.exe: hello-asm64.sa
 	as -o hello-asm64.o hello-asm64.sa
-	ld -o hello-asm64.exe hello-asm64.o
+	cc -o hello-asm64.exe hello-asm64.o  # use 'cc' rather than a naked 'ld' to work on MacOS
 
 csapp.exe: csapp.c
 	@echo "We don't need to compile csapp.c"
