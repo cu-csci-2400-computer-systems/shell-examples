@@ -24,12 +24,12 @@ static pid_t global_pid = 0;
 
 void sigint_handler(int sig)
 {
-  fprintf(stderr, "Caught SIGINT in %s!\n", __FILE__);
+  fprintf(stderr, "Caught SIGINT in %s for pid %d!\n", __FILE__, getpid());
 
   if (global_pid <= 0) {
     fprintf(stderr, "...but no child to kill...\n");
   } else {
-    fprintf(stderr, "...send SIGINT to %d\n", global_pid);
+    fprintf(stderr, "...send SIGINT to %d\n", global_pid); fflush(stderr);
     kill(global_pid, SIGINT);
   }
 }
@@ -51,14 +51,13 @@ int main()
 
     while (1)
     {
-        /* Read */
-        printf("> ");
-        Fgets(cmdline, MAXLINE, stdin);
-        if (feof(stdin))
-            exit(0);
+        /* Read */ 
+      fprintf(stderr, "%-8d> ", getpid());
+      Fgets(cmdline, MAXLINE, stdin);
+      if (feof(stdin))
+	exit(0);
 
-        /* Evaluate */
-        eval(cmdline);
+      eval(cmdline);
     }
 }
 
@@ -79,9 +78,9 @@ void eval(char *cmdline)
         if ((global_pid = Fork()) == 0)
         { /* Child runs user job */
             if (execve(argv[0], argv, environ) < 0)
-            {
-                printf("%s: Command not found.\n", argv[0]);
-                exit(0);
+            { 
+	      fprintf(stderr, "%s: Command not found.\n", argv[0]);
+	      exit(0);
             }
         }
 
@@ -96,7 +95,7 @@ void eval(char *cmdline)
 	    global_pid = 0;
         }
         else {
-	  printf("%d %s", global_pid, cmdline);
+	  fprintf(stderr, "%d %s", global_pid, cmdline);
 	  global_pid = 0;
 	}
     }

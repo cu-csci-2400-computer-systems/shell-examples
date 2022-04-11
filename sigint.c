@@ -3,8 +3,8 @@
 
 void sigint_handler(int sig)
 {
-  fprintf(stderr, "Caught SIGINT in %s!\n", __FILE__);
-    exit(0);
+  fprintf(stderr, "Caught SIGINT in %s for pid %d!\n", __FILE__, getpid());
+  exit(0);
 }
 
 int main()
@@ -15,8 +15,8 @@ int main()
 
     for (;;)
     {
-        fprintf(stderr, "Waiting for something to happen\n");
-        pause(); /* Wait for the receipt of a signal */
+      fprintf(stderr, "PID %d waiting for something to happen\n", getpid());
+      pause(); /* Wait for the receipt of a signal */
     }
 
     return 0;

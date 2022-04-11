@@ -10,6 +10,9 @@ all: $(EXE)
 %.exe : %.c csapp.o
 	$(CC) $(CFLAGS) -o $@ $< ./csapp.o $(LIBS)
 
+csapp.o: csapp.c
+	$(CC) $(CFLAGS) -c ./csapp.c
+
 #
 # This is linux specific because of syscall interface
 #
