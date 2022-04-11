@@ -22,21 +22,30 @@ int builtin_command(char **argv);
 
 static pid_t global_pid = 0;
 
+void flush()
+{
+  fflush(stderr); fsync(2);
+}
+
 void sigint_handler(int sig)
 {
   fprintf(stderr, "Caught SIGINT in %s for pid %d!\n", __FILE__, getpid());
+  flush();
 
   if (global_pid <= 0) {
     fprintf(stderr, "...but no child to kill...\n");
   } else {
-    fprintf(stderr, "...send SIGINT to %d\n", global_pid); fflush(stderr);
+    fprintf(stderr, "...send SIGINT to %d\n", global_pid);
+    flush();
     kill(global_pid, SIGINT);
   }
+  flush();
 }
 
 void sigchld_handler(int sig)
 {
   fprintf(stderr,"Caught SIGCHLD\n");
+  flush();
 }
 
 int main()
@@ -92,6 +101,7 @@ void eval(char *cmdline)
             if (waitpid(global_pid, &status, 0) < 0)
                 unix_error("waitfg: waitpid error");
 	    fprintf(stderr,"Done waiting for child %d\n", global_pid);
+	    flush();
 	    global_pid = 0;
         }
         else {
