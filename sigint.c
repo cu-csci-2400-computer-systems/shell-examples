@@ -3,7 +3,7 @@
 
 void sigint_handler(int sig)
 {
-    fprintf(stderr, "Caught SIGINT!\n");
+  fprintf(stderr, "Caught SIGINT in %s!\n", __FILE__);
     exit(0);
 }
 
