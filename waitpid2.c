@@ -3,10 +3,8 @@
 #define N 2
 
 //
-// The following is a simple shell as described in the textbook.
-//
-// The code does a simple fork / exec / wait mechanism for spawned processes.
-// I can
+// The following demonstrates the use of waitpid() to wait for
+// specific child processes.
 //
 
 int main()
@@ -22,7 +20,7 @@ int main()
     /* Parent reaps N children in order */
     i = 0;
     while ((retpid = waitpid(pid[i++], &status, 0)) > 0)
-    { //line:ecf:waitpid2:waitpid
+    { 
         if (WIFEXITED(status))
             printf("child %d terminated normally with exit status=%d\n",
                    retpid, WEXITSTATUS(status));

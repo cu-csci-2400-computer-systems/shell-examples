@@ -31,6 +31,8 @@ int main()
         }
     }
 
+
+
     /* Parent waits for terminal input and then processes it */
     if ((n = read(STDIN_FILENO, buf, sizeof(buf))) < 0)
         unix_error("read");
